@@ -1,6 +1,6 @@
 # Dinar Verse — Personal Portfolio
 
-A responsive, single-page portfolio starter built with vanilla HTML, CSS, and JavaScript. Designed around an editorial/minimalist premium style, cream and antique-gold palette, a custom abstract brain illustration, scroll reveals, loading intro, custom desktop cursor, theme toggle, and mobile navigation.
+A responsive, single-page portfolio starter built with vanilla HTML, CSS, and JavaScript. Designed around an editorial/minimalist premium style, cream and antique-gold palette, a your portrait framed with antique-gold accents and orbital details, scroll reveals, loading intro, custom desktop cursor, theme toggle, and mobile navigation.
 
 ## Preview locally
 
@@ -35,3 +35,17 @@ Add your professional portrait when ready. The first build uses an original SVG 
 - Google Fonts are loaded remotely; if you want a completely offline version, replace them with system fonts or host licensed font files locally.
 - GitHub Pages serves static files. Server-side features and private form handling need an external service or backend.
 - Respect `prefers-reduced-motion`; the site includes a reduced-motion fallback.
+
+
+## Personal contact and service packages
+
+This version includes Dinar's supplied professional contact links and three proposed monthly service packages. Prices are starting prices and should be confirmed before client agreements.
+
+- Email: dinar375d@gmail.com
+- WhatsApp: https://wa.me/8801920649327
+- LinkedIn: https://www.linkedin.com/in/sajminulhaquedinar
+- Instagram: https://www.instagram.com/dinar_verse_/
+- GitHub: https://github.com/dinar-glitch
+
+### Update GitHub Pages
+Upload the contents of this folder (including the `assets` folder) to the root of the `personal-profile` repository, then commit the changes. Keep `index.html`, `styles.css`, `script.js`, and `assets/dinar-portrait.jpeg` together.
