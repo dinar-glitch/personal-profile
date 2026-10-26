@@ -104,6 +104,19 @@
     });
   }
 
+  // Service rows lead to the inquiry form and preselect the chosen service.
+  document.querySelectorAll('.service-link[data-service]').forEach(link => {
+    link.addEventListener('click', () => {
+      const serviceSelect = document.getElementById('inquiry-service');
+      const selectedService = link.getAttribute('data-service');
+      if (serviceSelect && selectedService) {
+        const matchingOption = Array.from(serviceSelect.options).find(option => option.text.trim() === selectedService);
+        if (matchingOption) serviceSelect.value = matchingOption.value;
+        else if (selectedService === 'Social media management' || selectedService === 'Social media strategy' || selectedService === 'Instagram marketing' || selectedService === 'Graphic design' || selectedService === 'SEO') serviceSelect.value = selectedService;
+      }
+    });
+  });
+
   // Project inquiry: prepare a message for email or WhatsApp (static GitHub Pages has no form backend).
   const inquiryForm = document.getElementById('projectInquiryForm');
   const inquiryWhatsApp = document.getElementById('inquiryWhatsApp');
@@ -142,6 +155,51 @@
     const url = `https://wa.me/8801920649327?text=${encodeURIComponent(getInquiryMessage())}`;
     if (inquiryStatus) inquiryStatus.textContent = 'WhatsApp will open with your inquiry prepared. Review the message and press Send.';
     window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+
+  // Package buttons open a choice of WhatsApp, email, or the on-page inquiry form.
+  const packageModal = document.getElementById('packageContactModal');
+  const packageName = document.getElementById('packageContactName');
+  const packageDescription = document.getElementById('packageContactDescription');
+  const packageWhatsAppLink = document.getElementById('packageWhatsAppLink');
+  const packageEmailLink = document.getElementById('packageEmailLink');
+  const packageFormLink = document.getElementById('packageFormLink');
+  let activePackage = { name: '', price: '' };
+
+  function closePackageModal() {
+    if (!packageModal) return;
+    packageModal.classList.remove('is-open');
+    packageModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('package-modal-open');
+  }
+  document.querySelectorAll('.package-ask[data-package]').forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      activePackage = { name: button.dataset.package || 'Selected package', price: button.dataset.price || '' };
+      if (!packageModal) return;
+      if (packageName) packageName.textContent = activePackage.name + '.';
+      if (packageDescription) packageDescription.textContent = `You’re asking about ${activePackage.name} (${activePackage.price} starting price). Choose how you’d like to contact Dinar.`;
+      const message = `Hi Dinar, I'm interested in the ${activePackage.name} package (${activePackage.price} starting price). Could you share more details and confirm whether it's suitable for my needs?`;
+      if (packageWhatsAppLink) packageWhatsAppLink.href = `https://wa.me/8801920649327?text=${encodeURIComponent(message)}`;
+      if (packageEmailLink) packageEmailLink.href = `mailto:dinar375d@gmail.com?subject=${encodeURIComponent(activePackage.name + ' Package Inquiry')}&body=${encodeURIComponent(message)}`;
+      if (packageFormLink) packageFormLink.href = '#project-inquiry';
+      packageModal.classList.add('is-open');
+      packageModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('package-modal-open');
+      packageModal.querySelector('.package-contact-close')?.focus();
+    });
+  });
+  packageModal?.querySelectorAll('[data-close-package-modal]').forEach(button => button.addEventListener('click', closePackageModal));
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePackageModal(); });
+  packageFormLink?.addEventListener('click', () => {
+    const serviceSelect = document.getElementById('inquiry-service');
+    if (serviceSelect) {
+      const optionValue = activePackage.name + ' package';
+      const option = Array.from(serviceSelect.options).find(item => item.text.toLowerCase() === optionValue.toLowerCase());
+      if (option) serviceSelect.value = option.value;
+    }
+    closePackageModal();
   });
 
   const year = document.getElementById('year');

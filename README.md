@@ -53,3 +53,7 @@ Upload the contents of this folder (including the `assets` folder) to the root o
 
 ## Project inquiry form
 The project inquiry form validates the visitor's details, then prepares an email to dinar375d@gmail.com or a WhatsApp message to the listed business number. Because this site is hosted on static GitHub Pages, submissions are not stored or delivered to a database automatically. The visitor must review and send the prepared message. For a true online form with saved submissions, connect a form backend such as Formspree or a similar service.
+
+
+## Interactive services update
+The Services section now includes eight clickable service rows. Selecting a service scrolls visitors to the project inquiry form and preselects that service when a matching option is available. Upload the updated index.html, styles.css, script.js, and assets folder to the repository root.
