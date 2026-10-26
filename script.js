@@ -104,6 +104,46 @@
     });
   }
 
+  // Project inquiry: prepare a message for email or WhatsApp (static GitHub Pages has no form backend).
+  const inquiryForm = document.getElementById('projectInquiryForm');
+  const inquiryWhatsApp = document.getElementById('inquiryWhatsApp');
+  const inquiryStatus = document.getElementById('inquiryStatus');
+  function getInquiryMessage() {
+    if (!inquiryForm) return '';
+    const data = new FormData(inquiryForm);
+    return [
+      'Hello Dinar, I would like to discuss a project.',
+      '',
+      `Name: ${data.get('name') || ''}`,
+      `Email: ${data.get('email') || ''}`,
+      `Business / brand: ${data.get('company') || 'Not provided'}`,
+      `Service: ${data.get('service') || ''}`,
+      `Estimated budget: ${data.get('budget') || ''}`,
+      `Preferred start: ${data.get('timing') || 'Not specified'}`,
+      '',
+      'Project details:',
+      data.get('details') || ''
+    ].join('\n');
+  }
+  function validateInquiry() {
+    if (!inquiryForm || !inquiryForm.reportValidity()) return false;
+    return true;
+  }
+  inquiryForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    if (!validateInquiry()) return;
+    const subject = `Project Inquiry — ${inquiryForm.elements.name.value.trim()}`;
+    const mailto = `mailto:dinar375d@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(getInquiryMessage())}`;
+    if (inquiryStatus) inquiryStatus.textContent = 'Your email app should open with the inquiry prepared. Please review it and press Send. If nothing opens, use the WhatsApp option.';
+    window.location.href = mailto;
+  });
+  inquiryWhatsApp?.addEventListener('click', () => {
+    if (!validateInquiry()) return;
+    const url = `https://wa.me/8801920649327?text=${encodeURIComponent(getInquiryMessage())}`;
+    if (inquiryStatus) inquiryStatus.textContent = 'WhatsApp will open with your inquiry prepared. Review the message and press Send.';
+    window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 })();
