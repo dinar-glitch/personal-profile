@@ -22,3 +22,6 @@ A responsive, static HTML/CSS/JavaScript portfolio for Sajminul Haque Dinar. Des
 - All animated symbols are inline SVG, avoiding dependency on external image hosts or third-party logo loading.
 - The motion respects the visitor's `prefers-reduced-motion` accessibility setting.
 - Review contact details, service scope, package prices, and project examples before publishing.
+
+
+Latest update: The hero no longer uses a portrait. It now features a large animated DV identity and a central rotating marketing symbol (brain, growth, Instagram-style, engagement, and SEO), drawn inline so it does not rely on external image hosts.
