@@ -69,3 +69,23 @@ body.package-modal-open{overflow:hidden}
 .package-option small{font-size:10px;color:#6f675b}
 .package-contact-note{font-size:10px!important;border-top:1px solid rgba(36,35,31,.15);padding-top:15px}
 @media(max-width:520px){.package-contact-modal{padding:12px}.package-contact-dialog{padding:28px 20px}.package-contact-options{gap:7px}.package-option{padding:13px}}
+
+
+/* Dinar Verse animated symbol constellation: inline SVGs avoid fragile external logo/image requests. */
+.rotating-symbol{position:absolute;z-index:8;top:8%;right:2%;width:142px;height:154px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:12px 8px;border:1px solid rgba(165,123,53,.34);border-radius:48% 52% 46% 54%;background:linear-gradient(145deg,rgba(250,246,237,.94),rgba(236,228,214,.78));color:var(--ink);box-shadow:0 18px 45px rgba(64,44,16,.10),inset 0 0 28px rgba(215,181,109,.12);cursor:pointer;appearance:none;-webkit-appearance:none;animation:symbolFloat 5.5s ease-in-out infinite;touch-action:manipulation; -webkit-tap-highlight-color:transparent}
+body.dark-mode .rotating-symbol{background:linear-gradient(145deg,rgba(49,46,38,.97),rgba(35,33,28,.9));color:var(--ink)}
+.rotating-symbol:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+.symbol-icon{width:66px;height:66px;display:grid;place-items:center;color:var(--gold);transition:transform .45s cubic-bezier(.2,.75,.2,1),opacity .3s}
+.symbol-icon svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.symbol-icon.is-changing{opacity:.2;transform:scale(.72) rotate(-14deg)}
+.symbol-caption{font-size:7px;letter-spacing:.07em;text-align:center;line-height:1.35;max-width:120px;color:var(--muted)}
+.symbol-count{position:absolute;right:12px;top:12px;font-size:6px;color:var(--gold)}
+.symbol-orbit{position:absolute;inset:13px;border:1px solid rgba(165,123,53,.15);border-radius:50%;pointer-events:none}
+.symbol-orbit-a{transform:rotate(32deg) scaleX(.74);animation:orbitSpin 12s linear infinite}
+.symbol-orbit-b{transform:rotate(-35deg) scaleX(.74);border-style:dashed;animation:orbitSpin 17s linear infinite reverse}
+@keyframes symbolFloat{0%,100%{translate:0 0;rotate:-2deg}50%{translate:0 -8px;rotate:2deg}}
+@keyframes orbitSpin{to{transform:rotate(392deg) scaleX(.74)}}
+@keyframes symbolSwap{from{opacity:.25;transform:scale(.72) rotate(-12deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@media(max-width:900px){.rotating-symbol{top:7%;right:0;width:124px;height:136px}.symbol-icon{width:56px;height:56px}}
+@media(max-width:650px){.rotating-symbol{top:2%;right:2%;width:104px;height:116px;gap:5px;padding:8px}.symbol-icon{width:47px;height:47px}.symbol-caption{font-size:6px;max-width:90px}.symbol-count{right:9px;top:9px;font-size:5px}.symbol-orbit{inset:10px}.hero-art{overflow:visible}.portrait-wrap{margin-top:35px}}
+@media(prefers-reduced-motion:reduce){.rotating-symbol,.symbol-orbit-a,.symbol-orbit-b{animation:none!important}.symbol-icon,.symbol-icon.is-changing{transition:none!important}}

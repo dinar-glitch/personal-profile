@@ -91,6 +91,44 @@
     art.addEventListener('mouseleave', () => { brain.style.transform = ''; });
   }
 
+  // Animated brand symbol: all artwork is inline SVG, so it never depends on third-party images.
+  const rotatingSymbol = document.getElementById('rotatingSymbol');
+  const symbolIcon = document.getElementById('rotatingSymbolIcon');
+  const symbolCaption = document.getElementById('rotatingSymbolCaption');
+  const symbolCount = document.getElementById('rotatingSymbolCount');
+  if (rotatingSymbol && symbolIcon && symbolCaption && symbolCount) {
+    const symbols = [
+      { label: 'CREATIVE INTELLIGENCE', svg: '<svg viewBox="0 0 64 64" focusable="false"><path d="M31 12c-5-7-16-4-17 5-8 1-10 12-4 17-4 8 2 16 10 15 3 8 12 8 15 2V15c-1-1-2-2-4-3Z"/><path d="M33 12c5-7 16-4 17 5 8 1 10 12 4 17 4 8-2 16-10 15-3 8-12 8-15 2V15M19 20c5 0 8 4 7 9m-14 5c6-2 11 1 12 6m-2 8c-1-5 2-8 6-9m18-19c-5 0-8 4-7 9m14 5c-6-2-11 1-12 6m2 8c1-5-2-8-6-9"/></svg>' },
+      { label: 'BRAND GROWTH', svg: '<svg viewBox="0 0 64 64" focusable="false"><path d="M8 53h48M13 46V34h10v12M28 46V25h10v21M43 46V14h10v32M11 25l15-10 11 5L52 7"/><path d="M43 7h9v9"/></svg>' },
+      { label: 'INSTAGRAM CONTENT', svg: '<svg viewBox="0 0 64 64" focusable="false"><rect x="10" y="10" width="44" height="44" rx="13"/><circle cx="32" cy="32" r="10"/><circle cx="46" cy="18" r="2" fill="currentColor" stroke="none"/></svg>' },
+      { label: 'ENGAGEMENT / LIKES', svg: '<svg viewBox="0 0 64 64" focusable="false"><path d="M32 53S8 39 8 23c0-8 6-13 13-13 5 0 9 3 11 8 2-5 6-8 11-8 7 0 13 5 13 13 0 16-24 30-24 30Z"/><path d="m20 31 7 7 17-18"/></svg>' },
+      { label: 'SEO / DISCOVERY', svg: '<svg viewBox="0 0 64 64" focusable="false"><circle cx="27" cy="27" r="16"/><path d="m39 39 14 14M19 27h16M27 19v16"/><path d="m43 12 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z"/></svg>' }
+    ];
+    let symbolIndex = 0;
+    function showSymbol(nextIndex) {
+      symbolIndex = (nextIndex + symbols.length) % symbols.length;
+      const item = symbols[symbolIndex];
+      symbolIcon.classList.add('is-changing');
+      window.setTimeout(() => {
+        symbolIcon.innerHTML = item.svg;
+        symbolCaption.textContent = item.label;
+        symbolCount.textContent = `${String(symbolIndex + 1).padStart(2, '0')} / ${String(symbols.length).padStart(2, '0')}`;
+        symbolIcon.classList.remove('is-changing');
+        symbolIcon.style.animation = 'none';
+        void symbolIcon.offsetWidth;
+        symbolIcon.style.animation = reduceMotion ? 'none' : 'symbolSwap .45s ease-out';
+      }, reduceMotion ? 0 : 150);
+    }
+    // Automatic cycling works on phones too; tapping the symbol advances it immediately.
+    showSymbol(0);
+    rotatingSymbol.addEventListener('click', () => showSymbol(symbolIndex + 1));
+    if (!reduceMotion) {
+      window.setInterval(() => {
+        if (!document.hidden) showSymbol(symbolIndex + 1);
+      }, 2800);
+    }
+  }
+
   // Small magnetic pull on CTA buttons (desktop only).
   if (finePointer && !reduceMotion) {
     document.querySelectorAll('.magnetic').forEach(el => {
